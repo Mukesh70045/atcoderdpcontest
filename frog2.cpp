@@ -138,19 +138,25 @@ signed main()
     {
         ll i, j, a, b, c, d, f, cnt, ans, res, print;
         read(n);
+        read(k);
         vl v(n + 1);
-        v[0] = 0;
         forne(i, n)
         {
             cin >> v[i];
         }
-        vl dp(n + 1);
+        vl dp(n + 1, inf);
         dp[0] = 0;
         dp[1] = 0;
-        dp[2] = abs(v[2] - v[1]);
-        for (ll i = 3; i <= n; i++)
+
+        for (ll i = 2; i <= n; i++)
         {
-            dp[i] = min(dp[i - 2] + abs(v[i] - v[i - 2]), dp[i - 1] + abs(v[i] - v[i - 1]));
+            forne(j, k)
+            {
+                if ((i - j) > 0)
+                {
+                    dp[i] = min(dp[i], dp[i - j] + abs(v[i] - v[i - j]));
+                }
+            }
         }
         cout << dp[n] << endl;
     }
